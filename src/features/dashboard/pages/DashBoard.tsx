@@ -1,3 +1,4 @@
+import { LinearProgress, Paper, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -7,11 +8,18 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import {
   dashboardActions,
+  selectDashboardLoading,
   selectListHighestStudent,
   selectListHighestStudentByCity,
   selectListLowestStudent,
   selectStatisticStudent,
 } from '../dashboardSlice';
+import MaleIcon from '@mui/icons-material/Male';
+import FemaleIcon from '@mui/icons-material/Female';
+import CallMadeIcon from '@mui/icons-material/CallMade';
+import CallReceivedIcon from '@mui/icons-material/CallReceived';
+import DashboardTable from '../components/DashboardTable';
+import { cityActions, selectCityMap } from '../../city/citySlice';
 
 const mdTheme = createTheme();
 
@@ -21,45 +29,131 @@ function DashboardContent() {
   const listHighestStudent = useAppSelector(selectListHighestStudent);
   const listLowestStudent = useAppSelector(selectListLowestStudent);
   const listHighstStudentByCity = useAppSelector(selectListHighestStudentByCity);
+  const listCityMap = useAppSelector(selectCityMap);
+  const loading = useAppSelector(selectDashboardLoading);
 
-  console.log(statisticStudent);
-  console.log(listHighestStudent);
-  console.log(listLowestStudent);
-  console.log(listHighstStudentByCity);
+  console.log(loading);
 
   useEffect(() => {
     dispatch(dashboardActions.fetchDashboard());
+    dispatch(cityActions.fetchCityList());
   }, [dispatch]);
 
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
+
         <Box
           component="main"
           sx={{
             backgroundColor: (theme) =>
               theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900],
             flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
+            minHeight: '100vh',
+            position: 'relative',
           }}
         >
+          {loading && <LinearProgress sx={{ position: 'absolute', left: 0, top: '5px', width: '100%' }} />}
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              <Grid xs={12} md={6} lg={3} item>
-                Grid Item1
+            {/* Statistic Section */}
+            <Box sx={{ marginBottom: '30px' }}>
+              <Typography variant="h5" mb={1}>
+                Statistic
+              </Typography>
+              <Grid container spacing={3}>
+                <Grid xs={12} md={6} lg={3} item>
+                  <Paper elevation={4} sx={{ padding: '10px' }}>
+                    <Box>
+                      <MaleIcon fontSize="large" color="primary" />
+                    </Box>
+                    <Box>
+                      <Typography variant="h6">
+                        Male:{' '}
+                        <Typography sx={{ display: 'inline', color: '#1975D2' }}>
+                          {statisticStudent.maleTotal}
+                        </Typography>{' '}
+                      </Typography>
+                    </Box>
+                  </Paper>
+                </Grid>
+                <Grid xs={12} md={6} lg={3} item>
+                  <Paper elevation={4} sx={{ padding: '10px' }}>
+                    <Box>
+                      <FemaleIcon fontSize="large" color="primary" />
+                    </Box>
+                    <Box>
+                      <Typography variant="h6">
+                        Female:{' '}
+                        <Typography sx={{ display: 'inline', color: '#1975D2' }}>
+                          {statisticStudent.femaleTotal}
+                        </Typography>{' '}
+                      </Typography>
+                    </Box>
+                  </Paper>
+                </Grid>
+                <Grid xs={12} md={6} lg={3} item>
+                  <Paper elevation={4} sx={{ padding: '10px' }}>
+                    <Box>
+                      <CallMadeIcon fontSize="large" color="primary" />
+                    </Box>
+                    <Box>
+                      <Typography variant="h6">
+                        Mark &gt; 8:{' '}
+                        <Typography sx={{ display: 'inline', color: '#1975D2' }}>
+                          {statisticStudent.gt8}
+                        </Typography>{' '}
+                      </Typography>
+                    </Box>
+                  </Paper>
+                </Grid>
+                <Grid xs={12} md={6} lg={3} item>
+                  <Paper elevation={4} sx={{ padding: '10px' }}>
+                    <Box>
+                      <CallReceivedIcon fontSize="large" color="primary" />
+                    </Box>
+                    <Box>
+                      <Typography variant="h6">
+                        Mark &lt; 5:{' '}
+                        <Typography sx={{ display: 'inline', color: '#1975D2' }}>
+                          {statisticStudent.lt5}
+                        </Typography>{' '}
+                      </Typography>
+                    </Box>
+                  </Paper>
+                </Grid>
               </Grid>
-              <Grid xs={12} md={6} lg={3} item>
-                Grid Item1
+            </Box>
+
+            {/*  Highest and Lowest Students Table*/}
+            <Box sx={{ marginBottom: '30px' }}>
+              <Typography variant="h5" mb={1}>
+                Highest and Lowest Mark
+              </Typography>
+              <Grid container spacing={3}>
+                <Grid xs={12} md={6} item>
+                  <DashboardTable listStudent={listHighestStudent} />
+                </Grid>
+                <Grid xs={12} md={6} item>
+                  <DashboardTable listStudent={listLowestStudent} />
+                </Grid>
               </Grid>
-              <Grid xs={12} md={6} lg={3} item>
-                Grid Item1
+            </Box>
+
+            {/*  Highest and Lowest Students Table By City*/}
+            <Box sx={{ marginBottom: '30px' }}>
+              <Typography variant="h5" mb={1}>
+                Highest and Lowest Mark By City
+              </Typography>
+              <Grid container spacing={3}>
+                {listHighstStudentByCity.map((x) => (
+                  <Grid xs={12} md={6} item key={x.cityId}>
+                    <Typography>{listCityMap[x.cityId].name}</Typography>
+                    <DashboardTable listStudent={x.student} />
+                  </Grid>
+                ))}
               </Grid>
-              <Grid xs={12} md={6} lg={3} item>
-                Grid Item1
-              </Grid>
-            </Grid>
+            </Box>
           </Container>
         </Box>
       </Box>

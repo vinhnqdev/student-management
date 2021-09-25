@@ -15,11 +15,11 @@ const studentApi = {
     return axiosClient.post(url, student);
   },
   removeStudent: (id: string): Promise<any> => {
-    const url = `/students${id}`;
+    const url = `/students/${id}`;
     return axiosClient.delete(url);
   },
   updateStudent: (student: Partial<Student>, id: string): Promise<Student> => {
-    const url = `/students${id}`;
+    const url = `/students/${id}`;
     return axiosClient.patch(url, student);
   },
 };

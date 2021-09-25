@@ -58,7 +58,6 @@ const dashboardSlice = createSlice({
       state.list5LowestStudent = action.payload;
     },
     setListHighestStudentByCity: (state, action: PayloadAction<Array<StudentByCity>>) => {
-      console.log('STORE', action.payload);
       state.listHighestStudentByCity = action.payload;
     },
   },
@@ -72,6 +71,7 @@ export const selectStatisticStudent = (state: RootState) => state.dashboard.stat
 export const selectListHighestStudent = (state: RootState) => state.dashboard.list5HighestStudent;
 export const selectListLowestStudent = (state: RootState) => state.dashboard.list5LowestStudent;
 export const selectListHighestStudentByCity = (state: RootState) => state.dashboard.listHighestStudentByCity;
+export const selectDashboardLoading = (state: RootState) => state.dashboard.loading;
 
 // Dashboard Slice
 const dashboardReducer = dashboardSlice.reducer;

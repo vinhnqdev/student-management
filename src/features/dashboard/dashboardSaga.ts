@@ -69,6 +69,7 @@ function* fetchDashboardData() {
     call(fetchListLowestStudent),
     call(fetchListHighestStudentByCity),
   ]);
+  yield put(dashboardActions.fetchDashboardSuccess());
 }
 
 export function* DashboardSaga() {

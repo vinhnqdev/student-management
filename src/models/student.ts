@@ -1,9 +1,9 @@
 export interface Student {
-  id?: string | number;
+  id?: string;
   name: string;
   age: number;
   mark: number;
-  gender: "male" | "female";
+  gender: 'male' | 'female';
   createdAt?: number;
   updatedAt?: number;
   city: string;
