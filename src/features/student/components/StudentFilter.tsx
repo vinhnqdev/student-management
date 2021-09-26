@@ -116,7 +116,7 @@ function StudentFilter({
           }}
         >
           <Button variant="outlined" color="warning" fullWidth onClick={handleReset}>
-            Clear all
+            Clear filters
           </Button>
           <Button variant="contained" fullWidth onClick={() => history.push(`${routeMatch.path}/add`)}>
             Add new student

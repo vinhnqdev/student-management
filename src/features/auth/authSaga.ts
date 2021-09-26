@@ -1,10 +1,20 @@
-import { takeEvery } from "@redux-saga/core/effects";
-import { authActions } from "./authSlice";
+import { call, delay, put, takeLatest } from '@redux-saga/core/effects';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { authActions, User } from './authSlice';
 
-function* watchUserClick() {
-  console.log("USER CLICK!!!!");
+function calculateRemainingTime(expirationTime: string) {
+  const currentTime = new Date().getTime();
+  const expirationDuration = new Date(expirationTime).getTime();
+  const remainingTime = expirationDuration - currentTime;
+  return remainingTime;
+}
+
+function* watchLogin(user: PayloadAction<User>) {
+  const remainingTime: number = yield call(calculateRemainingTime, user.payload.expirationTime);
+  yield delay(remainingTime);
+  yield put(authActions.logout());
 }
 
 export function* authSaga() {
-  yield takeEvery(authActions.testAuth.type, watchUserClick);
+  yield takeLatest(authActions.setUser.type, watchLogin);
 }

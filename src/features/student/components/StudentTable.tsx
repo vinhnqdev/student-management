@@ -18,6 +18,7 @@ import React, { useState } from 'react';
 import { Student } from '../../../models';
 import { useTheme } from '@mui/material/styles';
 import { useHistory, useRouteMatch } from 'react-router';
+import { capitalizeText, getColorByMark } from '../../../utils';
 
 export interface StudentTableProps {
   listStudent: Array<Student>;
@@ -93,9 +94,11 @@ function StudentTable({ listStudent, onRemove }: StudentTableProps) {
                 </TableCell>
                 <TableCell align="left">{student.name}</TableCell>
                 <TableCell align="left">{student.city}</TableCell>
-                <TableCell align="left">{student.gender}</TableCell>
+                <TableCell align="left">{capitalizeText(student.gender)}</TableCell>
                 <TableCell align="center">{student.age}</TableCell>
-                <TableCell align="right">{student.mark}</TableCell>
+                <TableCell align="right" sx={{ color: getColorByMark(student.mark) }}>
+                  {student.mark}
+                </TableCell>
                 <TableCell
                   align="left"
                   sx={{

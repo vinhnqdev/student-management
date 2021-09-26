@@ -1,11 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 
 export interface User {
-  email: string;
   token: null | string;
   isLoggedIn: boolean;
-  // fullName: string;
+  expirationTime: string;
 }
 export interface UserState {
   user: User | null;
@@ -16,14 +15,22 @@ const initialState: UserState = {
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
-    testAuth: (state) => {
-      return state;
-    },
     setUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          token: action.payload.token,
+          expirationTime: action.payload.expirationTime,
+        })
+      );
+    },
+    logout: (state) => {
+      state.user = null;
+      localStorage.removeItem('user');
     },
   },
 });

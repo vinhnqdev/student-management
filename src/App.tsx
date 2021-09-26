@@ -10,16 +10,16 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
+
   useEffect(() => {
-    // Check localStorage to know whether has User or not
     const user = localStorage.getItem('user');
     if (user) {
-      const { email } = JSON.parse(user);
+      const { token, expirationTime } = JSON.parse(user);
       dispatch(
         authActions.setUser({
-          email,
-          token: '1227217332',
+          token: token,
           isLoggedIn: true,
+          expirationTime: expirationTime,
         })
       );
     }
