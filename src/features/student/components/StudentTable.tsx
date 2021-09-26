@@ -17,6 +17,7 @@ import Paper from '@mui/material/Paper';
 import React, { useState } from 'react';
 import { Student } from '../../../models';
 import { useTheme } from '@mui/material/styles';
+import { useHistory, useRouteMatch } from 'react-router';
 
 export interface StudentTableProps {
   listStudent: Array<Student>;
@@ -26,6 +27,8 @@ export interface StudentTableProps {
 function StudentTable({ listStudent, onRemove }: StudentTableProps) {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const [removeId, setRemoveId] = useState('');
+  const routeMatch = useRouteMatch();
+  const history = useHistory();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -37,6 +40,10 @@ function StudentTable({ listStudent, onRemove }: StudentTableProps) {
   const handleRemove = () => {
     setIsOpenDialog(false);
     onRemove(removeId);
+  };
+
+  const handleEditRedirect = (id: string) => {
+    history.push(`${routeMatch.path}/${id}`);
   };
 
   return (
@@ -89,7 +96,12 @@ function StudentTable({ listStudent, onRemove }: StudentTableProps) {
                 <TableCell align="center">{student.age}</TableCell>
                 <TableCell align="right">{student.mark}</TableCell>
                 <TableCell align="right">
-                  <Button sx={{ marginRight: '10px' }} color="info" variant="contained">
+                  <Button
+                    sx={{ marginRight: '10px' }}
+                    color="info"
+                    variant="contained"
+                    onClick={() => handleEditRedirect(student.id as string)}
+                  >
                     Edit
                   </Button>
                   <Button

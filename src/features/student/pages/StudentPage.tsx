@@ -3,7 +3,12 @@ import { ThemeProvider } from '@mui/private-theming';
 import { Box } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import studentApi from '../../../api/studentApi';
 import { useAppSelector } from '../../../app/hooks';
+import { cityActions, selectCityList } from '../../city/citySlice';
+import StudentFilter from '../components/StudentFilter';
+import StudentTable from '../components/StudentTable';
 import {
   selectFilter,
   selectListStudent,
@@ -11,10 +16,6 @@ import {
   selectTotalPages,
   studentActions,
 } from '../studentSlice';
-import StudentTable from '../components/StudentTable';
-import StudentFilter from '../components/StudentFilter';
-import { cityActions, selectCityList } from '../../city/citySlice';
-import studentApi from '../../../api/studentApi';
 
 function StudentPage() {
   const [page, setPage] = useState(1);
@@ -84,8 +85,34 @@ function StudentPage() {
     );
   };
 
-  const handleRemoveStudent = (id: string) => {
-    studentApi.removeStudent(id);
+  const handleRemoveStudent = async (id: string) => {
+    try {
+      await studentApi.removeStudent(id);
+      dispatch(
+        studentActions.fiter({
+          ...filter,
+        })
+      );
+      toast.success(`Remove the student successfully`, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } catch (error) {
+      toast.error('Failed to remove, try again', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
 
   const mdTheme = createTheme();

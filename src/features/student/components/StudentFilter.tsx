@@ -1,6 +1,7 @@
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
+import { useHistory, useRouteMatch } from 'react-router';
 import { City } from '../../../models';
 
 export interface StudentFilterProps {
@@ -22,6 +23,8 @@ function StudentFilter({
   const [city, setCity] = useState('');
   const [sort, setSort] = useState('');
   const [input, setInput] = useState('');
+  const history = useHistory();
+  const routeMatch = useRouteMatch();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -102,6 +105,9 @@ function StudentFilter({
         <Grid item md={6} lg={3} sx={{ textAlign: 'center' }}>
           <Button variant="outlined" color="warning" onClick={handleReset}>
             Clear all
+          </Button>
+          <Button variant="contained" onClick={() => history.push(`${routeMatch.path}/add`)}>
+            Add new student
           </Button>
         </Grid>
       </Grid>

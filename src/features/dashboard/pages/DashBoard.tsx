@@ -32,8 +32,6 @@ function DashboardContent() {
   const listCityMap = useAppSelector(selectCityMap);
   const loading = useAppSelector(selectDashboardLoading);
 
-  console.log(loading);
-
   useEffect(() => {
     dispatch(dashboardActions.fetchDashboard());
     dispatch(cityActions.fetchCityList());

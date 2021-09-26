@@ -21,6 +21,5 @@ function* handleDebouce(action: PayloadAction<ListParams>) {
 export function* studentSaga() {
   yield takeLatest(studentActions.fetchStudent.type, fetchStudent);
 
-  console.log('DEBOUCE');
   yield debounce(500, studentActions.debouce.type, handleDebouce);
 }

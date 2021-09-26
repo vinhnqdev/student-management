@@ -3,6 +3,7 @@ import { Box } from '@mui/system';
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router';
 import DashBoard from '../../features/dashboard/pages/DashBoard';
+import AddEditPage from '../../features/student/pages/AddEditPage';
 import StudentPage from '../../features/student/pages/StudentPage';
 import SideBar from '../Common/SideBar';
 import Header from './Header';
@@ -22,8 +23,14 @@ function AdminPage() {
             <Route path={`${routeMatch.path}/dashboard`}>
               <DashBoard />
             </Route>
-            <Route path={`${routeMatch.path}/student`}>
+            <Route path={`${routeMatch.path}/student`} exact>
               <StudentPage />
+            </Route>
+            <Route path={`${routeMatch.path}/student/add`}>
+              <AddEditPage />
+            </Route>
+            <Route path={`${routeMatch.path}/student/:idStudent`}>
+              <AddEditPage />
             </Route>
           </Switch>
         </Grid>

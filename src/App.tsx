@@ -5,7 +5,8 @@ import PrivateRoute from './components/Common/PrivateRoute';
 import AdminPage from './components/Layout/AdminPage';
 import { authActions, selectUser } from './features/auth/authSlice';
 import LoginPage from './features/auth/pages/LoginPage';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
@@ -25,14 +26,17 @@ function App() {
   }, [dispatch]);
 
   return (
-    <Switch>
-      <Route path="/" exact>
-        {user ? <Redirect to="/admin" /> : <LoginPage />}
-      </Route>
-      <PrivateRoute path="/admin">
-        <AdminPage />
-      </PrivateRoute>
-    </Switch>
+    <>
+      <ToastContainer />
+      <Switch>
+        <Route path="/" exact>
+          {user ? <Redirect to="/admin" /> : <LoginPage />}
+        </Route>
+        <PrivateRoute path="/admin">
+          <AdminPage />
+        </PrivateRoute>
+      </Switch>
+    </>
   );
 }
 
