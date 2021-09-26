@@ -11,7 +11,7 @@ const studentApi = {
     return axiosClient.get(url);
   },
   addStudent: (student: Student): Promise<Student> => {
-    const url = '/students/add';
+    const url = '/students';
     return axiosClient.post(url, student);
   },
   removeStudent: (id: string): Promise<any> => {

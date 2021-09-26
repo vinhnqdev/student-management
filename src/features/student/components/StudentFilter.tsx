@@ -55,9 +55,9 @@ function StudentFilter({
   };
 
   return (
-    <Box>
-      <Grid container>
-        <Grid item md={6} lg={3}>
+    <Box sx={{ marginBottom: '20px' }}>
+      <Grid container spacing={2} sx={{ placeItems: 'center' }}>
+        <Grid item xs={12} sm={6} md={6} lg={3}>
           <TextField
             label="Search name"
             value={input}
@@ -67,7 +67,7 @@ function StudentFilter({
             onChange={handleChange}
           />
         </Grid>
-        <Grid item md={6} lg={3}>
+        <Grid item xs={12} sm={6} md={6} lg={3}>
           <FormControl fullWidth size="small">
             <InputLabel id="select-city">City</InputLabel>
             <Select
@@ -85,7 +85,7 @@ function StudentFilter({
             </Select>
           </FormControl>
         </Grid>
-        <Grid item md={6} lg={3}>
+        <Grid item xs={12} sm={6} md={6} lg={3}>
           <FormControl fullWidth size="small">
             <InputLabel id="sort-student">Sort</InputLabel>
             <Select
@@ -98,15 +98,27 @@ function StudentFilter({
               <MenuItem value="mark.asc">Mark Asc</MenuItem>
               <MenuItem value="mark.desc">Mark Desc</MenuItem>
               <MenuItem value="name.asc">Name Asc</MenuItem>
-              <MenuItem value="name.desc">Mark Asc</MenuItem>
+              <MenuItem value="name.desc">Name Asc</MenuItem>
             </Select>
           </FormControl>
         </Grid>
-        <Grid item md={6} lg={3} sx={{ textAlign: 'center' }}>
-          <Button variant="outlined" color="warning" onClick={handleReset}>
+        <Grid
+          item
+          md={6}
+          lg={3}
+          sx={{
+            alignSelf: 'center',
+            textAlign: 'center',
+            display: 'flex',
+            flexWrap: 'wrap',
+            // justifyContent: 'center',
+            gap: '10px',
+          }}
+        >
+          <Button variant="outlined" color="warning" fullWidth onClick={handleReset}>
             Clear all
           </Button>
-          <Button variant="contained" onClick={() => history.push(`${routeMatch.path}/add`)}>
+          <Button variant="contained" fullWidth onClick={() => history.push(`${routeMatch.path}/add`)}>
             Add new student
           </Button>
         </Grid>

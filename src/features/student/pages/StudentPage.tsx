@@ -1,4 +1,11 @@
-import { Container, createTheme, CssBaseline, LinearProgress, Pagination } from '@mui/material';
+import {
+  Container,
+  createTheme,
+  CssBaseline,
+  LinearProgress,
+  Pagination,
+  useMediaQuery,
+} from '@mui/material';
 import { ThemeProvider } from '@mui/private-theming';
 import { Box } from '@mui/system';
 import React, { useEffect, useState } from 'react';
@@ -115,6 +122,8 @@ function StudentPage() {
     }
   };
 
+  const mbMediaQuery = useMediaQuery('(max-width:600px)');
+
   const mdTheme = createTheme();
   return (
     <ThemeProvider theme={mdTheme}>
@@ -125,9 +134,10 @@ function StudentPage() {
           sx={{
             backgroundColor: (theme) =>
               theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900],
-            flexGrow: 1,
+            flexGrow: mbMediaQuery ? 0 : 1,
             minHeight: '100vh',
             position: 'relative',
+            overflow: 'scroll',
           }}
         >
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>

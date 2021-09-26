@@ -56,64 +56,72 @@ function DashboardContent() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             {/* Statistic Section */}
             <Box sx={{ marginBottom: '30px' }}>
-              <Typography variant="h5" mb={1}>
+              <Typography variant="h5" mb={1} sx={{ textTransform: 'uppercase', fontWeight: '500' }}>
                 Statistic
               </Typography>
               <Grid container spacing={3}>
-                <Grid xs={12} md={6} lg={3} item>
+                <Grid xs={6} md={6} lg={3} item>
                   <Paper elevation={4} sx={{ padding: '10px' }}>
                     <Box>
                       <MaleIcon fontSize="large" color="primary" />
                     </Box>
                     <Box>
-                      <Typography variant="h6">
+                      <Typography variant="h6" sx={{ fontSize: '17px' }}>
                         Male:{' '}
-                        <Typography sx={{ display: 'inline', color: '#1975D2' }}>
+                        <Typography
+                          sx={{ display: 'inline', color: '#1975D2', fontWeight: 700, fontSize: '22px' }}
+                        >
                           {statisticStudent.maleTotal}
                         </Typography>{' '}
                       </Typography>
                     </Box>
                   </Paper>
                 </Grid>
-                <Grid xs={12} md={6} lg={3} item>
+                <Grid xs={6} md={6} lg={3} item>
                   <Paper elevation={4} sx={{ padding: '10px' }}>
                     <Box>
                       <FemaleIcon fontSize="large" color="primary" />
                     </Box>
                     <Box>
-                      <Typography variant="h6">
+                      <Typography variant="h6" sx={{ fontSize: '17px' }}>
                         Female:{' '}
-                        <Typography sx={{ display: 'inline', color: '#1975D2' }}>
+                        <Typography
+                          sx={{ display: 'inline', color: '#1975D2', fontWeight: 700, fontSize: '22px' }}
+                        >
                           {statisticStudent.femaleTotal}
                         </Typography>{' '}
                       </Typography>
                     </Box>
                   </Paper>
                 </Grid>
-                <Grid xs={12} md={6} lg={3} item>
+                <Grid xs={6} md={6} lg={3} item>
                   <Paper elevation={4} sx={{ padding: '10px' }}>
                     <Box>
                       <CallMadeIcon fontSize="large" color="primary" />
                     </Box>
                     <Box>
-                      <Typography variant="h6">
+                      <Typography variant="h6" sx={{ fontSize: '17px' }}>
                         Mark &gt; 8:{' '}
-                        <Typography sx={{ display: 'inline', color: '#1975D2' }}>
+                        <Typography
+                          sx={{ display: 'inline', color: '#1975D2', fontWeight: 700, fontSize: '22px' }}
+                        >
                           {statisticStudent.gt8}
                         </Typography>{' '}
                       </Typography>
                     </Box>
                   </Paper>
                 </Grid>
-                <Grid xs={12} md={6} lg={3} item>
+                <Grid xs={6} md={6} lg={3} item>
                   <Paper elevation={4} sx={{ padding: '10px' }}>
                     <Box>
                       <CallReceivedIcon fontSize="large" color="primary" />
                     </Box>
                     <Box>
-                      <Typography variant="h6">
+                      <Typography variant="h6" sx={{ fontSize: '17px' }}>
                         Mark &lt; 5:{' '}
-                        <Typography sx={{ display: 'inline', color: '#1975D2' }}>
+                        <Typography
+                          sx={{ display: 'inline', color: '#1975D2', fontWeight: 700, fontSize: '22px' }}
+                        >
                           {statisticStudent.lt5}
                         </Typography>{' '}
                       </Typography>
@@ -125,7 +133,7 @@ function DashboardContent() {
 
             {/*  Highest and Lowest Students Table*/}
             <Box sx={{ marginBottom: '30px' }}>
-              <Typography variant="h5" mb={1}>
+              <Typography variant="h5" mb={1} sx={{ textTransform: 'uppercase', fontWeight: '500' }}>
                 Highest and Lowest Mark
               </Typography>
               <Grid container spacing={3}>
@@ -140,7 +148,7 @@ function DashboardContent() {
 
             {/*  Highest and Lowest Students Table By City*/}
             <Box sx={{ marginBottom: '30px' }}>
-              <Typography variant="h5" mb={1}>
+              <Typography variant="h5" mb={1} sx={{ textTransform: 'uppercase', fontWeight: '500' }}>
                 Highest and Lowest Mark By City
               </Typography>
               <Grid container spacing={3}>

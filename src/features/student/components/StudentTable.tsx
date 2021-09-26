@@ -31,6 +31,7 @@ function StudentTable({ listStudent, onRemove }: StudentTableProps) {
   const history = useHistory();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const lgMediaQuery = useMediaQuery('(max-width:1180px)');
 
   const handleOpenDialog = (removeid: string) => {
     setIsOpenDialog(true);
@@ -95,18 +96,28 @@ function StudentTable({ listStudent, onRemove }: StudentTableProps) {
                 <TableCell align="left">{student.gender}</TableCell>
                 <TableCell align="center">{student.age}</TableCell>
                 <TableCell align="right">{student.mark}</TableCell>
-                <TableCell align="right">
+                <TableCell
+                  align="left"
+                  sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '10px',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
                   <Button
-                    sx={{ marginRight: '10px' }}
-                    color="info"
+                    fullWidth={lgMediaQuery}
+                    color="primary"
                     variant="contained"
                     onClick={() => handleEditRedirect(student.id as string)}
                   >
                     Edit
                   </Button>
                   <Button
+                    fullWidth={lgMediaQuery}
                     color="error"
-                    variant="contained"
+                    variant="outlined"
                     onClick={() => handleOpenDialog(student.id as string)}
                   >
                     Remove

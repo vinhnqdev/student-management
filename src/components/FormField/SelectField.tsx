@@ -27,7 +27,7 @@ export default function SelectField({ name, label, control, options }: SelectFie
 
   return (
     <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth error={invalid}>
+      <FormControl fullWidth error={invalid} size="small">
         <InputLabel id="select-field">{label}</InputLabel>
         <Select labelId="select-field" value={value} label="Age" onChange={onChange} onBlur={onBlur}>
           {options.map((option) => (

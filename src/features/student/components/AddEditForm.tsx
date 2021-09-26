@@ -7,19 +7,32 @@ import RadioField from '../../../components/FormField/RadioField';
 import SelectField from '../../../components/FormField/SelectField';
 import { Student } from '../../../models';
 import { selectcityOptions } from '../../city/citySlice';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Box } from '@mui/system';
+
+const schema = yup.object().shape({
+  name: yup.string().required(),
+  age: yup.number().typeError('Must a number').min(18).integer().max(60).required('No age provided'),
+  mark: yup.number().typeError('Must a number').positive().max(10).required(),
+  city: yup.string().required(),
+});
 
 export interface AddEditFormProps {
   intitalValues: Student;
+  onAddEditStudent: (student: Student) => void;
+  isUpdateMode: boolean;
 }
 
-function AddEditForm({ intitalValues }: AddEditFormProps) {
+function AddEditForm({ isUpdateMode, intitalValues, onAddEditStudent }: AddEditFormProps) {
   const { control, handleSubmit } = useForm<Student>({
     defaultValues: intitalValues,
+    resolver: yupResolver(schema),
   });
   const cityOptions = useAppSelector(selectcityOptions);
 
-  const handleFormSubmit = (value: Student) => {
-    console.log('Submitted!!!', value);
+  const handleFormSubmit = (student: Student) => {
+    onAddEditStudent(student);
   };
 
   const radioOptions = [
@@ -43,9 +56,11 @@ function AddEditForm({ intitalValues }: AddEditFormProps) {
 
       <SelectField name="city" control={control} label="City" options={cityOptions} />
 
-      <Button type="submit" variant="contained" fullWidth>
-        Update
-      </Button>
+      <Box mt={2}>
+        <Button type="submit" variant="contained" fullWidth>
+          {isUpdateMode ? 'Update' : 'Add'}
+        </Button>
+      </Box>
     </form>
   );
 }
