@@ -1,6 +1,5 @@
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
-import React from 'react';
 import { useHistory } from 'react-router';
 import { useAppDispatch } from '../../../app/hooks';
 import { authActions } from '../authSlice';

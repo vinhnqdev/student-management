@@ -9,17 +9,17 @@ export interface StatisticStudent {
   lt5: number;
 }
 
+export interface StudentByCity {
+  cityId: string;
+  student: Student[];
+}
+
 export interface DashboardState {
   statistic: StatisticStudent;
   loading: boolean;
   list5HighestStudent: Array<Student>;
   list5LowestStudent: Array<Student>;
   listHighestStudentByCity: Array<StudentByCity>;
-}
-
-export interface StudentByCity {
-  cityId: string;
-  student: Student[];
 }
 
 const initialState: DashboardState = {

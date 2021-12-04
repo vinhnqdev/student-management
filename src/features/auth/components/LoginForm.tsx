@@ -1,28 +1,21 @@
-import {
-  Alert,
-  Button,
-  CircularProgress,
-  Link,
-  Snackbar,
-  Typography,
-} from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { Box } from "@mui/system";
-import React, { useState } from "react";
-import InputField from "../../../components/FormField/InputField";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { Alert, Button, CircularProgress, Link, Snackbar, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { Box } from '@mui/system';
+import React, { useState } from 'react';
+import InputField from '../../../components/FormField/InputField';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 
 const useStyles = makeStyles({
   root: {},
   form: {
-    width: "100%",
-    maxWidth: "500px",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: "100px",
+    width: '100%',
+    maxWidth: '500px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: '100px',
   },
 });
 
@@ -43,25 +36,19 @@ export interface LoginUser {
 }
 
 export interface LoginFormProps {
-  onSubmit: (
-    isLoggedIn: boolean,
-    user: LoginUser,
-    callback: (error: string) => void
-  ) => void;
+  onSubmit: (isLoggedIn: boolean, user: LoginUser, callback: (error: string) => void) => void;
   initialValues: LoginUser;
 }
 
 function LoginForm({ onSubmit, initialValues }: LoginFormProps) {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [error, setError] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Login Mode or SignUp Mode
+  const [error, setError] = useState('');
   const classes = useStyles();
 
-  const { handleSubmit, control, reset, watch, formState } = useForm<LoginUser>(
-    {
-      defaultValues: initialValues,
-      resolver: yupResolver(schema),
-    }
-  );
+  const { handleSubmit, control, reset, watch, formState } = useForm<LoginUser>({
+    defaultValues: initialValues,
+    resolver: yupResolver(schema),
+  });
 
   const switchLoginMode = () => {
     reset(initialValues);
@@ -71,16 +58,16 @@ function LoginForm({ onSubmit, initialValues }: LoginFormProps) {
   const handleError = (error: string) => {
     reset({
       ...initialValues,
-      firstName: watch("firstName"),
-      lastName: watch("lastName"),
+      firstName: watch('firstName'),
+      lastName: watch('lastName'),
     });
 
     let errorMessage = error;
-    if (error === "EMAIL_EXISTS") {
-      errorMessage = "Email existed, try again!!";
+    if (error === 'EMAIL_EXISTS') {
+      errorMessage = 'Email existed, try again!!';
     }
-    if (error === "INVALID_PASSWORD") {
-      errorMessage = "Invalid password, try again!!";
+    if (error === 'INVALID_PASSWORD') {
+      errorMessage = 'Invalid password, try again!!';
     }
     setError(errorMessage);
   };
@@ -100,29 +87,26 @@ function LoginForm({ onSubmit, initialValues }: LoginFormProps) {
 
   return (
     <Box className={classes.form}>
+      {/** Toast error message when having any errors with login/signup */}
       <Snackbar
         open={!!error}
         autoHideDuration={6000}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        onClose={() => setError("")}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        onClose={() => setError('')}
       >
-        <Alert
-          onClose={() => setError("")}
-          severity="error"
-          sx={{ width: "100%" }}
-        >
+        <Alert onClose={() => setError('')} severity="error" sx={{ width: '100%' }}>
           {error}
         </Alert>
       </Snackbar>
 
       <Typography align="left" variant="h4" mb={3}>
-        {isLoggedIn ? "Login" : "Sign up"}
+        {isLoggedIn ? 'Login' : 'Sign up'}
       </Typography>
 
       {/* Form */}
       <form onSubmit={handleSubmit(handleLoginFormSubmit)}>
         {!isLoggedIn && (
-          <Box sx={{ display: "flex", gap: "20px" }}>
+          <Box sx={{ display: 'flex', gap: '20px' }}>
             <InputField name="firstName" control={control} label="First Name" />
             <InputField name="lastName" control={control} label="Last Name" />
           </Box>
@@ -131,34 +115,23 @@ function LoginForm({ onSubmit, initialValues }: LoginFormProps) {
           <InputField name="email" control={control} label="Email" />
         </Box>
         <Box>
-          <InputField
-            type="password"
-            name="password"
-            control={control}
-            label="Password"
-          />
+          <InputField type="password" name="password" control={control} label="Password" />
         </Box>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          size="large"
-          sx={{ marginTop: "15px" }}
-        >
+        <Button type="submit" fullWidth variant="contained" size="large" sx={{ marginTop: '15px' }}>
           {formState.isSubmitting && <CircularProgress color="success" />}
-          {isLoggedIn ? "Login" : "Sign up"}
+          {isLoggedIn ? 'Login' : 'Sign up'}
         </Button>
 
         <Link
           sx={{
-            marginTop: "20px",
-            display: "block",
-            textAlign: "end",
-            cursor: "pointer",
+            marginTop: '20px',
+            display: 'block',
+            textAlign: 'end',
+            cursor: 'pointer',
           }}
           onClick={switchLoginMode}
         >
-          {isLoggedIn ? "Sign up" : "Login"}
+          {isLoggedIn ? 'Sign up' : 'Login'}
         </Link>
       </form>
     </Box>

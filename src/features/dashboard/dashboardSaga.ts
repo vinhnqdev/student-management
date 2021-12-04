@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery } from '@redux-saga/core/effects';
+import { all, call, put, takeLatest } from '@redux-saga/core/effects';
 import cityApi from '../../api/cityApi';
 import studentApi from '../../api/studentApi';
 import { City, ListResponse, Student } from '../../models';
@@ -32,6 +32,7 @@ function* fetchListHighestStudent() {
   });
   yield put(dashboardActions.setListHighestStudent(listHighestStudent));
 }
+
 function* fetchListLowestStudent() {
   const { data: listLowestStudent }: ListResponse<Student> = yield call(studentApi.getAll, {
     _page: 1,
@@ -73,5 +74,5 @@ function* fetchDashboardData() {
 }
 
 export function* DashboardSaga() {
-  yield takeEvery(dashboardActions.fetchDashboard.type, fetchDashboardData);
+  yield takeLatest(dashboardActions.fetchDashboard.type, fetchDashboardData);
 }

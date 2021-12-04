@@ -41,7 +41,6 @@ function DashboardContent() {
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-
         <Box
           component="main"
           sx={{
@@ -53,6 +52,7 @@ function DashboardContent() {
           }}
         >
           {loading && <LinearProgress sx={{ position: 'absolute', left: 0, top: '5px', width: '100%' }} />}
+
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             {/* Statistic Section */}
             <Box sx={{ marginBottom: '30px' }}>
